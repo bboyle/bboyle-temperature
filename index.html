@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Temperature</title>
+</head>
+<body>
+
+
+	<bboyle-temperature celsius="10">10°C</bboyle-temperature>
+
+	<bboyle-temperature farenheit="75">75F</bboyle-temperature>
+
+
+	<script>
+	(function() {
+		'use strict';
+
+		function round( number, precision ) {
+			precision = Math.pow( 10, precision );
+			return Math.round( number * precision ) / precision;
+		}
+
+
+		var elements = document.querySelectorAll( 'bboyle-temperature' );
+
+		Array.prototype.forEach.call( elements, function( e ) {
+			var c = e.getAttribute( 'celsius' );
+			var f = e.getAttribute( 'farenheit' );
+
+			if ( c ) {
+				c = parseFloat( c );
+				f = round(( c * 1.8 ), 2 ) + 32;
+				e.textContent = c + '°C (' + f + '°F)';
+
+			} else if ( f ) {
+				f = parseFloat( f );
+				c = round(( f - 32 ) / 1.8, 2 );
+				e.textContent = f + '°F (' + c + '°C)';
+			}
+		});
+	}());
+	</script>
+
+</body>
+</html>
